@@ -1,4 +1,4 @@
-import { DATA } from './aplGameJSON.js';
+//import { DATA } from './aplGameJSON.js';
 (function () {
 	"use strict";
 
@@ -226,10 +226,10 @@ import { DATA } from './aplGameJSON.js';
 	}
 
 	let grabImages = function (dataObj) {
-		let imgArr = generateUniqueRandomNumbers(4, dataObj.imageCount)
+		let imgArr = generateUniqueRandomNumbers(3, dataObj.imageCount)
 			.map(num => [
 				"./imgs/" + dataObj.imageType + "/" + dataObj.caseType + "/" + dataObj.case + "/IG_" + num + ".jpg",
-				"imgFlip" + randomNumber(4) + randomNumber(4)
+				"imgFlip" + randomNumber(1) + randomNumber(1)
 			]);
 		return imgArr;
 	}
