@@ -228,7 +228,7 @@
 	let grabImages = function (dataObj) {
 		let imgArr = generateUniqueRandomNumbers(3, dataObj.imageCount)
 			.map(num => [
-				"./imgs/" + dataObj.imageType + "/" + dataObj.caseType + "/" + dataObj.case + "/IG_" + num + ".jpg",
+				"./imgs/" + dataObj.imageType + "/" + dataObj.caseType + "/IG_" + num + ".jpg",
 				"imgFlip" + randomNumber(1) + randomNumber(1)
 			]);
 		return imgArr;
