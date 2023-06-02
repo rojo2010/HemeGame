@@ -32,7 +32,7 @@
 		console.log('buildCase');
 		$main.empty();
 
-		let $card = $('<div>', {class:"card"}).appendTo($main);
+		let $card = $('<div>', {class:"card w-500 h-500"}).appendTo($main);
 		let title = $('<h1>', {text: "Who am I?"}).appendTo($card);
 		$('<div>', {text: "(Scroll down to answer as needed.)"}).appendTo($card)
 		let $images = $('<div>',{class: "row rowfill img-magnifier-container"}).appendTo($card);
@@ -43,7 +43,7 @@
 
 		imageArr.forEach(function (image, index) {
 			let $img = $('<img>', {id: "imageHolderMag" + index, src: image[0], class: "imgFill " + image[1]});
-			$('<div>', {class: "col-2 col-sm-2 colfill"})
+			$('<div>', {class: "col-15 col-sm-15 colfill"})
 				.append($img)
 				.appendTo($images);
 			// makeMagnifier("imageHolderMag" + index, 3);
@@ -51,11 +51,11 @@
 		});
 
 
-		$('<button>', {type: "button", class: "btn btn-success w-100", text: "Metamyelocyte"})
+		$('<button>', {type: "button", class: "btn btn-success w-1", text: "Metamyelocyte"})
 			.click(answerResponse(dataObj, "meta")).appendTo($btnGroup);
-		$('<button>', {type: "button", class: "btn btn-warning w-100", text: "Myelocyte"})
+		$('<button>', {type: "button", class: "btn btn-warning w-1", text: "Myelocyte"})
 			.click(answerResponse(dataObj, "myelo")).appendTo($btnGroup);
-		$('<button>', {type: "button", class: "btn btn-danger w-100", text: "Promyelocyte"})
+		$('<button>', {type: "button", class: "btn btn-danger w-1", text: "Promyelocyte"})
 			.click(answerResponse(dataObj, "pro")).appendTo($btnGroup);
 	}
 
@@ -226,7 +226,7 @@
 	}
 
 	let grabImages = function (dataObj) {
-		let imgArr = generateUniqueRandomNumbers(3, dataObj.imageCount)
+		let imgArr = generateUniqueRandomNumbers(1, dataObj.imageCount)
 			.map(num => [
 				"./imgs/" + dataObj.imageType + "/" + dataObj.caseType + "/IG_" + num + ".jpg",
 				"imgFlip" + randomNumber(1) + randomNumber(1)
