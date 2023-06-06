@@ -2,43 +2,92 @@ DATA = [
 	{
 		case: "case0",
 		imageType: "cellavision",
-		caseType: "meta",
-		imageCount: 7,
+		caseType: "smudge",
+		imageCount: 1,
 		// nAPLresponse: ""
 		// pAPLresponse:: ""
 	}, {
 		case: "case0",
 		imageType: "cellavision",
-		caseType: "myelo",
-		imageCount: 3,
+		caseType: "plasma",
+		imageCount: 1,
 		// nAPLresponse: ""
 		// pAPLresponse:: ""
 	}, {
 		case: "case0",
 		imageType: "cellavision",
-		caseType: "pro",
-		imageCount: 8,
+		caseType: "mega",
+		imageCount: 1,
 		// nAPLresponse: ""
 		// pAPLresponse:: ""
 	}, {
-		case: "case1",
+		case: "case0",
 		imageType: "cellavision",
-		caseType: "meta",
+		caseType: "lym",
+		imageCount: 2,
+		// nAPLresponse: ""
+		// pAPLresponse:: ""
+	}, {
+		case: "case0",
+		imageType: "cellavision",
+		caseType: "neut",
+		imageCount: 0,
+		// nAPLresponse: ""
+		// pAPLresponse:: ""
+	}, {
+		case: "case0",
+		imageType: "cellavision",
+		caseType: "hist",
+		imageCount: 1,
+		// nAPLresponse: ""
+		// pAPLresponse:: ""
+	}, {
+		case: "case0",
+		imageType: "cellavision",
+		caseType: "eryth",
 		imageCount: 6,
 		// nAPLresponse: ""
 		// pAPLresponse:: ""
 	}, {
-		case: "case1",
+		case: "case0",
 		imageType: "cellavision",
-		caseType: "myelo",
+		caseType: "eo",
 		imageCount: 3,
 		// nAPLresponse: ""
 		// pAPLresponse:: ""
 	}, {
-		case: "case1",
+		case: "case0",
+		imageType: "cellavision",
+		caseType: "blast",
+		imageCount: 3,
+		// nAPLresponse: ""
+		// pAPLresponse:: ""
+	}, {
+		case: "case0",
+		imageType: "cellavision",
+		caseType: "band",
+		imageCount: 3,
+		// nAPLresponse: ""
+		// pAPLresponse:: ""
+	}, {
+		case: "case0",
+		imageType: "cellavision",
+		caseType: "meta",
+		imageCount: 16,
+		// nAPLresponse: ""
+		// pAPLresponse:: ""
+	}, {
+		case: "case0",
+		imageType: "cellavision",
+		caseType: "myelo",
+		imageCount: 6,
+		// nAPLresponse: ""
+		// pAPLresponse:: ""
+	}, {
+		case: "case0",
 		imageType: "cellavision",
 		caseType: "pro",
-		imageCount: 4,
+		imageCount: 13,
 		// nAPLresponse: ""
 		// pAPLresponse:: ""
 	}];

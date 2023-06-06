@@ -32,12 +32,12 @@
 		console.log('buildCase');
 		$main.empty();
 
-		let $card = $('<div>', {class:"card w-500 h-300"}).appendTo($main);
+		let $card = $('<div>', {class:"card w-500 h-500"}).appendTo($main);
 		let title = $('<h1>', {text: "Who am I?"}).appendTo($card);
 		$('<div>', {text: "(Scroll down to answer as needed.)"}).appendTo($card)
 		let $images = $('<div>',{class: "row rowfill img-magnifier-container"}).appendTo($card);
-		let $sidebar = $('<div>',{class: "sidebar"}).appendTo($card);
-		let $btnGroup = $('<div>',{class: "sidebar"},{class: "btn-group flex-column btnfill"}).appendTo($sidebar)
+		let $footer = $('<footer>',{class: "mt-auto"}).appendTo($card);
+		let $btnGroup = $('<footer>',{class: "btn-group d-flex flex-column btnfill", role: "group"}).appendTo($footer)
 
 		let imageArr = grabImages(dataObj);
 

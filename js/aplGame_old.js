@@ -32,12 +32,12 @@
 		console.log('buildCase');
 		$main.empty();
 
-		let $card = $('<div>', {class:"card w-500 h-300"}).appendTo($main);
+		let $card = $('<div>', {class:"card w-500 h-500"}).appendTo($main);
 		let title = $('<h1>', {text: "Who am I?"}).appendTo($card);
 		$('<div>', {text: "(Scroll down to answer as needed.)"}).appendTo($card)
 		let $images = $('<div>',{class: "row rowfill img-magnifier-container"}).appendTo($card);
-		let $sidebar = $('<div>',{class: "sidebar"}).appendTo($card);
-		let $btnGroup = $('<div>',{class: "sidebar"},{class: "btn-group flex-column btnfill"}).appendTo($sidebar)
+		let $footer = $('<footer>',{class: "mt-auto"}).appendTo($card);
+		let $btnGroup = $('<footer>',{class: "btn-group d-flex btnfill", role: "group"}).appendTo($footer)
 
 		let imageArr = grabImages(dataObj);
 
@@ -51,33 +51,13 @@
 		});
 
 
-		$('<button>', {type: "button", class: "btn btn-primary w-1", text: "metamyelocyte"})
+		$('<button>', {type: "button", class: "btn btn-success w-1", text: "Metamyelocyte"})
 			.click(answerResponse(dataObj, "meta")).appendTo($btnGroup);
-		$('<button>', {type: "button", class: "btn btn-primary w-1", text: "myelocyte"})
+		$('<button>', {type: "button", class: "btn btn-warning w-1", text: "Myelocyte"})
 			.click(answerResponse(dataObj, "myelo")).appendTo($btnGroup);
-		$('<button>', {type: "button", class: "btn btn-primary w-1", text: "promyelocyte"})
+		$('<button>', {type: "button", class: "btn btn-danger w-1", text: "Promyelocyte"})
 			.click(answerResponse(dataObj, "pro")).appendTo($btnGroup);
-		$('<button>', {type: "button", class: "btn btn-primary w-1", text: "blast"})
-			.click(answerResponse(dataObj, "blast")).appendTo($btnGroup);
-		$('<button>', {type: "button", class: "btn btn-primary w-1", text: "erythroid"})
-			.click(answerResponse(dataObj, "eryth")).appendTo($btnGroup);
-		$('<button>', {type: "button", class: "btn btn-primary w-1", text: "neutrophil"})
-			.click(answerResponse(dataObj, "neut")).appendTo($btnGroup);		
-		$('<button>', {type: "button", class: "btn btn-primary w-1", text: "band"})
-			.click(answerResponse(dataObj, "band")).appendTo($btnGroup);
-		$('<button>', {type: "button", class: "btn btn-primary w-1", text: "lymphocyte"})
-			.click(answerResponse(dataObj, "lym")).appendTo($btnGroup);		
-		$('<button>', {type: "button", class: "btn btn-primary w-1", text: "megakaryocyte"})
-			.click(answerResponse(dataObj, "mega")).appendTo($btnGroup);
-		$('<button>', {type: "button", class: "btn btn-primary w-1", text: "eosinophil"})
-			.click(answerResponse(dataObj, "eo")).appendTo($btnGroup);
-		$('<button>', {type: "button", class: "btn btn-primary w-1", text: "histiocyte"})
-			.click(answerResponse(dataObj, "hist")).appendTo($btnGroup);
-		$('<button>', {type: "button", class: "btn btn-primary w-1", text: "plasma cell"})
-			.click(answerResponse(dataObj, "plasma")).appendTo($btnGroup);	
-		$('<button>', {type: "button", class: "btn btn-primary w-1", text: "smudge cell"})
-			.click(answerResponse(dataObj, "smudge")).appendTo($btnGroup);
-		}
+	}
 
 	let dialog = function (text) {
 		$("#exampleModalLabel").text(text);
@@ -108,7 +88,32 @@
 
 			if (dataObj.caseType === response) {
 				responseStr = "Nailed it!";
-			} else {responseStr = "try again"
+			} else if (response === "meta") {
+				if (dataObj.caseType === "myelo") {
+					// called Myelocyte for Metamyelocyte
+					responseStr = "Close, but no cigar. This is a myelocyte. Notice that the nucleus is flatter than a metamyelocyte.";
+				} else if (dataObj.caseType === "pro") {
+					// called Myelocyte for not Promyelocyte
+					responseStr = "Oops. This is a Promyelocyte. Remember that promyelocytes have a hoff, pink granules, and bilobed nuclei.";
+				}
+
+			} else if (response === "myelo") {
+				if (dataObj.caseType === "meta") {
+					// called Metamyelocyte for myelocyte
+					responseStr = "Close, but no cigar. This is a metamyelocyte. Notice that the nucleus is indented.";
+				} else if (dataObj.caseType === "pro") {
+					// called Myelocyte for not Promyelocyte
+					responseStr = "Oops. This is a Promyelocyte. Remember that promyelocytes have a hoff, pink granules, and bilobed nuclei.";
+				}
+				
+			} else if (response === "pro") {
+				if (dataObj.caseType === "myelo") {
+					// called Myelocyte for Metamyelocyte
+					responseStr = "Nope. This is a myelocyte. The nucleus is not bilobed or indented, it's flat, and there is no hoff.";
+				} else if (dataObj.caseType === "meta") {
+					// called Myelocyte for not Promyelocyte
+					responseStr = "Nice try. This is a metamyelocyte. Metamyelocytes have an indented nucleus, but not a bilobed nucleus, and no hoff.";
+				}	
 			}
 
 			if (dataObj.response) {
@@ -187,69 +192,37 @@
 		}
 	};
 
+
 	let grabCase = function () {
-		let bandiff = 8
-		let blastdiff = 1
-		let eodiff = 5
-		let erythdiff = 20
-		let histiodiff = 4
-		let lymdiff = 7
-		let megdiff = 6
-		let metdiff = 16
-		let myelodiff = 11
-		let neutdiff = 12
-		let plasmadiff = 3
-		let prodiff = 5
-		let smudgediff = 2
-		
-		// first cell type
-		let caseTypeN = Math.random()*100;
-		let caseType = "eryth";
-		if (caseTypeN < blastdiff) {
-			caseType = "blast";
-		} else if (caseTypeN < smudgediff) {
-			caseType = "smudge";
-		} else if (caseTypeN < plasmadiff) {
-			caseType = "plasma";
-		} else if (caseTypeN < histiodiff) {
-			caseType = "hist";
-		} else if (caseTypeN < prodiff) {
-			caseType = "pro";
-		} else if (caseTypeN < eodiff) {
-			caseType = "eo";
-		} else if (caseTypeN < megdiff) {
-			caseType = "mega";
-		} else if (caseTypeN < lymdiff) {
-			caseType = "lym";
-		} else if (caseTypeN < bandiff) {
-			caseType = "band";
-		} else if (caseTypeN < myelodiff) {
+			// first cell type
+		let caseTypeN = Math.random();
+		let caseType = "meta";
+		if (caseTypeN < .5) {
 			caseType = "myelo";
-		} else if (caseTypeN < neutdiff) {
-			caseType = "neut";
-		} else if (caseTypeN < metdiff) {
-			caseType = "meta";
+		} else if (caseTypeN < .7) {
+			caseType = "pro";
 		}
+
 		let cases = DATA.filter(entry => entry.caseType === caseType);
 
 		//get random parameters
 		let listCount = cases.map(entry => entry.imageCount)
-	//	let totalCount = listCount.reduce((a, b) => a + b);
+		let totalCount = listCount.reduce((a, b) => a + b);
 
-	//	let randomNum = Math.floor(Math.random() * totalCount) + 1;
+		let randomNum = Math.floor(Math.random() * totalCount) + 1;
 
-	//	let counter = 0;
-	//	let caseNumber = -1;
+		let counter = 0;
+		let caseNumber = -1;
 		// console.log(randomNum, totalCount);
-	//	listCount.forEach(function(value, ind) {
-	//		counter += value;
-	//		// console.log(counter, caseNumber);
-	//		if (counter > randomNum && caseNumber === -1) {
-	//			caseNumber = ind;
-	//		}
-	//	});
+		listCount.forEach(function(value, ind) {
+			counter += value;
+			// console.log(counter, caseNumber);
+			if (counter > randomNum && caseNumber === -1) {
+				caseNumber = ind;
+			}
+		});
 
-		return cases[0];
+		return cases[caseNumber];
 	}
 
 	let grabImages = function (dataObj) {
