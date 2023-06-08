@@ -1,4 +1,5 @@
 //import { DATA } from './aplGameJSON.js';
+//import os
 (function () {
 	"use strict";
 
@@ -7,9 +8,9 @@
 	let $main = $('#home');
 	let $modal = $("#exampleModal");
 
-	let randomNumber = function (max) {
+	let randomNumber = function (min, max) {
 		//returns a number between 0 and max - 1
-		return Math.floor(Math.random() * (max));
+		return Math.floor(Math.random() * (max - min +1)) + min;
 	}
 
 	let generateUniqueRandomNumbers = function (n, max) {
@@ -19,7 +20,7 @@
 			n = max;
 		}
 		while (retArr.length < n) {
-			let num =randomNumber(max);
+			let num =randomNumber(1,max);
 			if (!ret.hasOwnProperty(num)) {
 				ret[num] = 1;
 				retArr.push(num);
@@ -32,17 +33,17 @@
 		console.log('buildCase');
 		$main.empty();
 
-		let $card = $('<div>', {class:"card w-500 h-500"}).appendTo($main);
+		let $card = $('<div>', {class:"card w-500 h-300"}).appendTo($main);
 		let title = $('<h1>', {text: "Who am I?"}).appendTo($card);
-		$('<div>', {text: "(Scroll down to answer as needed.)"}).appendTo($card)
+		//$('<div>', {text: "(Scroll down to answer as needed.)"}).appendTo($card)
 		let $images = $('<div>',{class: "row rowfill img-magnifier-container"}).appendTo($card);
-		let $footer = $('<footer>',{class: "mt-auto"}).appendTo($card);
-		let $btnGroup = $('<footer>',{class: "btn-group d-flex btnfill", role: "group"}).appendTo($footer)
+		let $sidebar = $('<div>',{class: "sidebar"}).appendTo($card);
+		let $btnGroup = $('<div>',{class: "sidebar"},{class: "btn-group flex-column btnfill"}).appendTo($sidebar)
 
 		let imageArr = grabImages(dataObj);
 
 		imageArr.forEach(function (image, index) {
-			let $img = $('<img>', {id: "imageHolderMag" + index, src: image[0], class: "imgFill " + image[1]});
+			let $img = $('<img>', {id: "imageHolderMag" + index, width: 350, height: 350, src: image[0], class: "imgFill " + image[1]});
 			$('<div>', {class: "col-15 col-sm-15 colfill"})
 				.append($img)
 				.appendTo($images);
@@ -51,13 +52,33 @@
 		});
 
 
-		$('<button>', {type: "button", class: "btn btn-success w-1", text: "Metamyelocyte"})
+		$('<button>', {type: "button", class: "btn btn-primary w-1", text: "metamyelocyte"})
 			.click(answerResponse(dataObj, "meta")).appendTo($btnGroup);
-		$('<button>', {type: "button", class: "btn btn-warning w-1", text: "Myelocyte"})
+		$('<button>', {type: "button", class: "btn btn-primary w-1", text: "myelocyte"})
 			.click(answerResponse(dataObj, "myelo")).appendTo($btnGroup);
-		$('<button>', {type: "button", class: "btn btn-danger w-1", text: "Promyelocyte"})
+		$('<button>', {type: "button", class: "btn btn-primary w-1", text: "promyelocyte"})
 			.click(answerResponse(dataObj, "pro")).appendTo($btnGroup);
-	}
+		$('<button>', {type: "button", class: "btn btn-primary w-1", text: "blast"})
+			.click(answerResponse(dataObj, "blast")).appendTo($btnGroup);
+		$('<button>', {type: "button", class: "btn btn-primary w-1", text: "erythroid"})
+			.click(answerResponse(dataObj, "eryth")).appendTo($btnGroup);
+		$('<button>', {type: "button", class: "btn btn-primary w-1", text: "neutrophil"})
+			.click(answerResponse(dataObj, "neut")).appendTo($btnGroup);		
+		$('<button>', {type: "button", class: "btn btn-primary w-1", text: "band"})
+			.click(answerResponse(dataObj, "band")).appendTo($btnGroup);
+		$('<button>', {type: "button", class: "btn btn-primary w-1", text: "lymphocyte"})
+			.click(answerResponse(dataObj, "lym")).appendTo($btnGroup);		
+		$('<button>', {type: "button", class: "btn btn-primary w-1", text: "megakaryocyte"})
+			.click(answerResponse(dataObj, "mega")).appendTo($btnGroup);
+		$('<button>', {type: "button", class: "btn btn-primary w-1", text: "eosinophil"})
+			.click(answerResponse(dataObj, "eo")).appendTo($btnGroup);
+		$('<button>', {type: "button", class: "btn btn-primary w-1", text: "histiocyte"})
+			.click(answerResponse(dataObj, "hist")).appendTo($btnGroup);
+		$('<button>', {type: "button", class: "btn btn-primary w-1", text: "plasma cell"})
+			.click(answerResponse(dataObj, "plasma")).appendTo($btnGroup);	
+		$('<button>', {type: "button", class: "btn btn-primary w-1", text: "smudge cell"})
+			.click(answerResponse(dataObj, "smudge")).appendTo($btnGroup);
+		}
 
 	let dialog = function (text) {
 		$("#exampleModalLabel").text(text);
@@ -88,32 +109,7 @@
 
 			if (dataObj.caseType === response) {
 				responseStr = "Nailed it!";
-			} else if (response === "meta") {
-				if (dataObj.caseType === "myelo") {
-					// called Myelocyte for Metamyelocyte
-					responseStr = "Close, but no cigar. This is a myelocyte. Notice that the nucleus is flatter than a metamyelocyte.";
-				} else if (dataObj.caseType === "pro") {
-					// called Myelocyte for not Promyelocyte
-					responseStr = "Oops. This is a Promyelocyte. Remember that promyelocytes have a hoff, pink granules, and bilobed nuclei.";
-				}
-
-			} else if (response === "myelo") {
-				if (dataObj.caseType === "meta") {
-					// called Metamyelocyte for myelocyte
-					responseStr = "Close, but no cigar. This is a metamyelocyte. Notice that the nucleus is indented.";
-				} else if (dataObj.caseType === "pro") {
-					// called Myelocyte for not Promyelocyte
-					responseStr = "Oops. This is a Promyelocyte. Remember that promyelocytes have a hoff, pink granules, and bilobed nuclei.";
-				}
-				
-			} else if (response === "pro") {
-				if (dataObj.caseType === "myelo") {
-					// called Myelocyte for Metamyelocyte
-					responseStr = "Nope. This is a myelocyte. The nucleus is not bilobed or indented, it's flat, and there is no hoff.";
-				} else if (dataObj.caseType === "meta") {
-					// called Myelocyte for not Promyelocyte
-					responseStr = "Nice try. This is a metamyelocyte. Metamyelocytes have an indented nucleus, but not a bilobed nucleus, and no hoff.";
-				}	
+			} else {responseStr = "try again"
 			}
 
 			if (dataObj.response) {
@@ -192,39 +188,72 @@
 		}
 	};
 
-
 	let grabCase = function () {
-			// first cell type
-		let caseTypeN = Math.random();
-		let caseType = "meta";
-		if (caseTypeN < .5) {
-			caseType = "myelo";
-		} else if (caseTypeN < .7) {
-			caseType = "pro";
-		}
+		let megdiff = 1
+		let smudgediff = 2
+		let plasmadiff = 3
+		let histiodiff = 4
+		let eodiff = 5
+		let blastdiff = 6
+		let lymdiff = 7
+		let bandiff = 8
+		let prodiff = 9
+		let erythdiff = 11
+		let myelodiff = 13
+		let neutdiff = 16
+		let metdiff = 17
 
+		
+		// first cell type
+		let caseTypeN = Math.random()*20;
+		let caseType = "meta";
+		if (caseTypeN > neutdiff) {
+			caseType = "neut";
+		} else if (caseTypeN > myelodiff) {
+			caseType = "myelo";
+		} else if (caseTypeN > erythdiff) {
+			caseType = "eryth";
+		} else if (caseTypeN > prodiff) {
+			caseType = "pro";
+		} else if (caseTypeN > bandiff) {
+			caseType = "band";
+		} else if (caseTypeN > lymdiff) {
+			caseType = "lym";
+		} else if (caseTypeN > blastdiff) {
+			caseType = "blast";
+		} else if (caseTypeN > eodiff) {
+			caseType = "eo";
+		} else if (caseTypeN > histiodiff) {
+			caseType = "hist";
+		} else if (caseTypeN > plasmadiff) {
+			caseType = "plasma";
+		} else if (caseTypeN > smudgediff) {
+			caseType = "smudge";
+		} else if (caseTypeN > megdiff) {
+			caseType = "mega";
+		}
 		let cases = DATA.filter(entry => entry.caseType === caseType);
 
 		//get random parameters
 		let listCount = cases.map(entry => entry.imageCount)
-		let totalCount = listCount.reduce((a, b) => a + b);
+	//	let totalCount = listCount.reduce((a, b) => a + b);
 
-		let randomNum = Math.floor(Math.random() * totalCount) + 1;
+	//	let randomNum = Math.floor(Math.random() * totalCount) + 1;
 
-		let counter = 0;
-		let caseNumber = -1;
+	//	let counter = 0;
+	//	let caseNumber = -1;
 		// console.log(randomNum, totalCount);
-		listCount.forEach(function(value, ind) {
-			counter += value;
-			// console.log(counter, caseNumber);
-			if (counter > randomNum && caseNumber === -1) {
-				caseNumber = ind;
-			}
-		});
+	//	listCount.forEach(function(value, ind) {
+	//		counter += value;
+	//		// console.log(counter, caseNumber);
+	//		if (counter > randomNum && caseNumber === -1) {
+	//			caseNumber = ind;
+	//		}
+	//	});
 
-		return cases[caseNumber];
+		return cases[0];
 	}
-
+	
 	let grabImages = function (dataObj) {
 		let imgArr = generateUniqueRandomNumbers(1, dataObj.imageCount)
 			.map(num => [
@@ -233,6 +262,32 @@
 			]);
 		return imgArr;
 	}
+	
+//	function grabImages(dataObj) {
+//		const imgArr = [];
+//		for (let i = 0; i < dataObj.imageCount; i++) {
+//		  const num = generateUniqueRandomNumbers(1, dataObj.imageCount)[i];
+		  //const extension = ['jpg'|'png']
+//		  const file_path = `./imgs/${dataObj.imageType}/${dataObj.caseType}/IG_${num}.[jpg|png]`;
+		 
+		  // Check if the file exists.
+		  //const fs = require(['fs'])
+//		  var myfile = File (file_path,"image/jpg")
+//		  if (myfile.exists()) {
+//			imgArr.push([
+//			  file_path,
+//			  "imgFlip" + randomNumber(1) + randomNumber(1)
+//			]);
+//		  } else {
+//				const file_path = `./imgs/${dataObj.imageType}/${dataObj.caseType}/IG_${num}.png`;
+//				imgArr.push([
+//			  		file_path,
+//			  		"imgFlip" + randomNumber(1) + randomNumber(1)
+//			]);
+//		  }
+//		}
+//		return imgArr;
+//	  }
 
 	// // create google event tracking
 	// ga('create', 'APL|res-APL', 'auto', 'APL|res-APL');
