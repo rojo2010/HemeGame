@@ -1,4 +1,5 @@
 //import { DATA } from './aplGameJSON.js';
+//import os
 (function () {
 	"use strict";
 
@@ -7,9 +8,9 @@
 	let $main = $('#home');
 	let $modal = $("#exampleModal");
 
-	let randomNumber = function (max) {
+	let randomNumber = function (min, max) {
 		//returns a number between 0 and max - 1
-		return Math.floor(Math.random() * (max));
+		return Math.floor(Math.random() * (max - min +1)) + min;
 	}
 
 	let generateUniqueRandomNumbers = function (n, max) {
@@ -19,7 +20,7 @@
 			n = max;
 		}
 		while (retArr.length < n) {
-			let num =randomNumber(max);
+			let num =randomNumber(1,max);
 			if (!ret.hasOwnProperty(num)) {
 				ret[num] = 1;
 				retArr.push(num);
@@ -34,7 +35,7 @@
 
 		let $card = $('<div>', {class:"card w-500 h-300"}).appendTo($main);
 		let title = $('<h1>', {text: "Who am I?"}).appendTo($card);
-		$('<div>', {text: "(Scroll down to answer as needed.)"}).appendTo($card)
+		//$('<div>', {text: "(Scroll down to answer as needed.)"}).appendTo($card)
 		let $images = $('<div>',{class: "row rowfill img-magnifier-container"}).appendTo($card);
 		let $sidebar = $('<div>',{class: "sidebar"}).appendTo($card);
 		let $btnGroup = $('<div>',{class: "sidebar"},{class: "btn-group flex-column btnfill"}).appendTo($sidebar)
@@ -42,7 +43,7 @@
 		let imageArr = grabImages(dataObj);
 
 		imageArr.forEach(function (image, index) {
-			let $img = $('<img>', {id: "imageHolderMag" + index, src: image[0], class: "imgFill " + image[1]});
+			let $img = $('<img>', {id: "imageHolderMag" + index, width: 350, height: 350, src: image[0], class: "imgFill " + image[1]});
 			$('<div>', {class: "col-15 col-sm-15 colfill"})
 				.append($img)
 				.appendTo($images);
@@ -188,47 +189,48 @@
 	};
 
 	let grabCase = function () {
-		let bandiff = 8
-		let blastdiff = 1
-		let eodiff = 5
-		let erythdiff = 20
-		let histiodiff = 4
-		let lymdiff = 7
-		let megdiff = 6
-		let metdiff = 16
-		let myelodiff = 11
-		let neutdiff = 12
-		let plasmadiff = 3
-		let prodiff = 5
+		let megdiff = 1
 		let smudgediff = 2
+		let plasmadiff = 3
+		let histiodiff = 4
+		let eodiff = 5
+		let blastdiff = 6
+		let lymdiff = 7
+		let bandiff = 8
+		let prodiff = 9
+		let erythdiff = 11
+		let myelodiff = 13
+		let neutdiff = 16
+		let metdiff = 17
+
 		
 		// first cell type
-		let caseTypeN = Math.random()*100;
-		let caseType = "eryth";
-		if (caseTypeN < blastdiff) {
-			caseType = "blast";
-		} else if (caseTypeN < smudgediff) {
-			caseType = "smudge";
-		} else if (caseTypeN < plasmadiff) {
-			caseType = "plasma";
-		} else if (caseTypeN < histiodiff) {
-			caseType = "hist";
-		} else if (caseTypeN < prodiff) {
-			caseType = "pro";
-		} else if (caseTypeN < eodiff) {
-			caseType = "eo";
-		} else if (caseTypeN < megdiff) {
-			caseType = "mega";
-		} else if (caseTypeN < lymdiff) {
-			caseType = "lym";
-		} else if (caseTypeN < bandiff) {
-			caseType = "band";
-		} else if (caseTypeN < myelodiff) {
-			caseType = "myelo";
-		} else if (caseTypeN < neutdiff) {
+		let caseTypeN = Math.random()*20;
+		let caseType = "meta";
+		if (caseTypeN > neutdiff) {
 			caseType = "neut";
-		} else if (caseTypeN < metdiff) {
-			caseType = "meta";
+		} else if (caseTypeN > myelodiff) {
+			caseType = "myelo";
+		} else if (caseTypeN > erythdiff) {
+			caseType = "eryth";
+		} else if (caseTypeN > prodiff) {
+			caseType = "pro";
+		} else if (caseTypeN > bandiff) {
+			caseType = "band";
+		} else if (caseTypeN > lymdiff) {
+			caseType = "lym";
+		} else if (caseTypeN > blastdiff) {
+			caseType = "blast";
+		} else if (caseTypeN > eodiff) {
+			caseType = "eo";
+		} else if (caseTypeN > histiodiff) {
+			caseType = "hist";
+		} else if (caseTypeN > plasmadiff) {
+			caseType = "plasma";
+		} else if (caseTypeN > smudgediff) {
+			caseType = "smudge";
+		} else if (caseTypeN > megdiff) {
+			caseType = "mega";
 		}
 		let cases = DATA.filter(entry => entry.caseType === caseType);
 
@@ -251,7 +253,7 @@
 
 		return cases[0];
 	}
-
+	
 	let grabImages = function (dataObj) {
 		let imgArr = generateUniqueRandomNumbers(1, dataObj.imageCount)
 			.map(num => [
@@ -260,6 +262,32 @@
 			]);
 		return imgArr;
 	}
+	
+//	function grabImages(dataObj) {
+//		const imgArr = [];
+//		for (let i = 0; i < dataObj.imageCount; i++) {
+//		  const num = generateUniqueRandomNumbers(1, dataObj.imageCount)[i];
+		  //const extension = ['jpg'|'png']
+//		  const file_path = `./imgs/${dataObj.imageType}/${dataObj.caseType}/IG_${num}.[jpg|png]`;
+		 
+		  // Check if the file exists.
+		  //const fs = require(['fs'])
+//		  var myfile = File (file_path,"image/jpg")
+//		  if (myfile.exists()) {
+//			imgArr.push([
+//			  file_path,
+//			  "imgFlip" + randomNumber(1) + randomNumber(1)
+//			]);
+//		  } else {
+//				const file_path = `./imgs/${dataObj.imageType}/${dataObj.caseType}/IG_${num}.png`;
+//				imgArr.push([
+//			  		file_path,
+//			  		"imgFlip" + randomNumber(1) + randomNumber(1)
+//			]);
+//		  }
+//		}
+//		return imgArr;
+//	  }
 
 	// // create google event tracking
 	// ga('create', 'APL|res-APL', 'auto', 'APL|res-APL');

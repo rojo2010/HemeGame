@@ -3,7 +3,7 @@ DATA = [
 		case: "case0",
 		imageType: "cellavision",
 		caseType: "smudge",
-		imageCount: 1,
+		imageCount: 3,
 		// nAPLresponse: ""
 		// pAPLresponse:: ""
 	}, {
@@ -24,14 +24,14 @@ DATA = [
 		case: "case0",
 		imageType: "cellavision",
 		caseType: "lym",
-		imageCount: 2,
+		imageCount: 3,
 		// nAPLresponse: ""
 		// pAPLresponse:: ""
 	}, {
 		case: "case0",
 		imageType: "cellavision",
 		caseType: "neut",
-		imageCount: 0,
+		imageCount: 3,
 		// nAPLresponse: ""
 		// pAPLresponse:: ""
 	}, {
@@ -45,7 +45,7 @@ DATA = [
 		case: "case0",
 		imageType: "cellavision",
 		caseType: "eryth",
-		imageCount: 6,
+		imageCount: 8,
 		// nAPLresponse: ""
 		// pAPLresponse:: ""
 	}, {
@@ -73,21 +73,21 @@ DATA = [
 		case: "case0",
 		imageType: "cellavision",
 		caseType: "meta",
-		imageCount: 16,
+		imageCount: 17,
 		// nAPLresponse: ""
 		// pAPLresponse:: ""
 	}, {
 		case: "case0",
 		imageType: "cellavision",
 		caseType: "myelo",
-		imageCount: 6,
+		imageCount: 7,
 		// nAPLresponse: ""
 		// pAPLresponse:: ""
 	}, {
 		case: "case0",
 		imageType: "cellavision",
 		caseType: "pro",
-		imageCount: 13,
+		imageCount: 14,
 		// nAPLresponse: ""
 		// pAPLresponse:: ""
 	}];
