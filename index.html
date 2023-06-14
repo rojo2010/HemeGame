@@ -79,6 +79,7 @@
     <link href="./css/cover.css" rel="stylesheet">
   </head>
   <body class="d-flex h-100 text-center text-white bg-dark">
+
     
 <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
   <header class="mb-auto">
@@ -87,9 +88,8 @@
       <nav class="nav nav-masthead justify-content-center float-md-end">
         <a id="homeBtn" class="nav-link fw-bold py-1 px-0 active" aria-current="page" href="#">Home</a>
         <a id="usBtn" class="nav-link fw-bold py-1 px-0" href="#">About Us</a>
-        <a id="tutorBtn" class="nav-link fw-bold py-1 px-0" href="#">Tutorial</a>
       </nav>
-    </div>
+    </div>    
   </header>
 
   <main id="main" class="px-6">
@@ -100,13 +100,26 @@
         <a href="#" id="startCards" class="newCard btn btn-lg btn-secondary fw-bold border-white bg-white">START</a>
       </p>
     </div>
-<!--    <nav id="navigator" class="nav justify-content-end">
-      <ul>
-        <li><a href="#">Home</a></li>
-        <li><a href="#">About</a></li>
-        <li><a href="#">Contact</a></li>
-      </ul>
-    </nav> -->
+    <div id="aboutus" class="card" style="display:none;">
+      <h2>About Us</h2>
+      <p class="lead" align= "justify">
+      <style> 
+      div {padding-left: 5%; padding-right: 5%; padding-top: 3%; padding-bottom: 3%;
+      }
+      </style> 
+      <font size="+1"> Hi, we're a couple of Stanford Hemepath fellows who know that learning to diff bone marrows can be hard, but we also think it should be fun! That's why we made this game. Please feel free to contact us with any suggestions to improve the game, or other tutorials that you'd enjoy. You can find the source code and images on <a href=https://github.com/rojo2010/HemeGame>Github</a>. 
+      </font></p>
+      <h2>Our Team</h2>
+      <font size="+1">  
+      <p class="link">
+      <a href=https://www.pathologyoutlines.com/directory/rebecca-rojansky>Rebecca Rojansky, M.D., Ph.D.</a> 
+      </p>
+      <p class="link">     
+      <a href=https://www.pathologyoutlines.com/directory/jingjing-zhang>Jing Zhang, M.D., Ph.D.</a> 
+      </p>
+      </font>
+    </div>
+
   </main>
 
   <footer class="mt-auto text-white-50">
@@ -124,7 +137,7 @@
           <h4 id="exampleModalLabel"></h4>
         </div>
         <div class="modal-footer btn-group d-flex btnfill">
-          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Look Again?</button>
+          <button id="brb" type="button" class="btn btn-danger" data-bs-dismiss="modal">Look Again?</button>
           <button type="button" class="newCard btn btn-success">New Card</button>
         </div>
       </div>
@@ -139,3 +152,16 @@
   <script src="https://www.google-analytics.com/analytics.js"></script>
   <script type="text/javascript" src="./js/aplGame.js"></script>
   </html>
+
+
+
+ 
+<!-- <div id="sidebar">
+<div class="btn-group flex-column btnfill">
+<button id="tutorButton">Tutor Mode</button>
+<button id="testButton">Test Mode</button>
+</div>
+</div>
+</div>
+</body>
+</html>  -->

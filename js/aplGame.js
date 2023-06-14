@@ -4,6 +4,19 @@ var score = 0;
 var cardcount = 0;
 var grade = 0;
 
+/* (function toggleMode() {
+	let mode = document.getElementById("mode");
+	let isTutorMode = mode.value === "tutor";
+  
+	// Hide the buttons that are not relevant for the current mode
+	document.getElementById("tutorButton").style.display = isTutorMode ? "none" : "block";
+	document.getElementById("testButton").style.display = !isTutorMode ? "none" : "block";
+  
+	// Update the text of the mode label
+	mode.textContent = isTutorMode ? "Tutor Mode" : "Test Mode";
+  }); */
+
+  
 (function () {
 	"use strict";
 
@@ -55,18 +68,87 @@ var grade = 0;
 		}
 		return retArr;
 	}
+			
+	
+	
+			
+
 
 	let buildCase = function (dataObj) {
 		console.log('buildCase');
 		$main.empty();
 
+
+		
 		let $card = $('<div>', {class:"card w-500 h-300"}).appendTo($main);
 		let title = $('<h1>', {text: "Who am I?"}).appendTo($card);
-		//$('<div>', {text: "(Scroll down to answer as needed.)"}).appendTo($card)
+
+
+		let $mode = $('<div>', {
+			id: "mode",
+			class: "btn-group flex-column btnfill",
+			value: "tutor"
+		  }).appendTo($main);
+
+		  var brb = document.getElementById("brb");
+		  
+		  var tutorButton = $('<button>', {
+			id: "tutorButton",
+			text: "Tutor Mode",
+			style: "width: 150px; height: 50px;"
+		  }).appendTo($mode);
+		
+		  var testButton = $('<button>', {
+			id: "testButton",
+			text: "Test Mode",
+			style: "width: 150px; height: 50px;"
+		  }).appendTo($mode);
+		
+		/*   if (testButton.pressed=true) {
+			// Set the value of the element "mode" to "tutor"
+			document.getElementById("mode").value = "test"	;
+			console.log(mode.value);
+			brb.style.display = "none";
+			};
+		if (tutorButton.pressed=true) {
+				document.getElementById("mode").value = "tutor"
+				console.log(mode.value);
+				brb.style.display = "block";
+				brb.textContent = "go back?"; 
+
+			};*/	
+			$(tutorButton).click(function (evt) {
+				evt.preventDefault();
+				console.log("you clicked a button");
+				if (!$("tutorButton").hasClass("active")) {
+				  $("testButton").removeClass("active");
+				  $("tutorButton").addClass("active");
+				  // include back button
+				  brb.style.display = "block";
+				}
+			  });
+			
+			
+			$(testButton).click(function (evt) {
+				evt.preventDefault();
+				console.log("you clicked a button");
+				if (!$("testButton").hasClass("active")) {
+				  $("tutorButton").removeClass("active");
+				  $("testButton").addClass("active");
+				  // remove back button
+				  brb.style.display = "none";		}
+			  });
+
+
+
+
 		let $images = $('<div>',{class: "row rowfill img-magnifier-container"}).appendTo($card);
 		let $sidebar = $('<div>',{class: "sidebar"}).appendTo($card);
 		let $btnGroup = $('<div>',{class: "sidebar"},{class: "btn-group flex-column btnfill"}).appendTo($sidebar)
+		
 		$('<br>').appendTo($card);
+
+
 		let $scorecard = $('<div>',{class: "section"}).appendTo($card);
         $('<h2>', {id: "newby", text: 'Your Score',   style: "margin-left: 10px; margin-right: 10px;"	}).appendTo($scorecard);
 		$('<label>', { id: "lblScore", text: score}).appendTo($scorecard); // Display score	
@@ -76,7 +158,8 @@ var grade = 0;
 		$('<label>', { id: "grade", text: Math.round(grade)}).appendTo($scorecard); // Display score as a percentage
 		$('<text>', {id: "percent", text: "%"}).appendTo($scorecard);
 		// Set the background color of the scorecard box based on the value of grade
-//$scorecard.css("background-color", getColor(grade));
+		
+
 if (grade >= 90) {
 	$scorecard.css("background-color", "green");
   } else if (grade >= 80) {
@@ -95,21 +178,9 @@ $scorecard.find("label").css({
 $scorecard.find("text").css({
 	fontSize: '1.5em'
   });
-function getColor(grade) {
-	switch (grade) {
-	  case 90 <= grade && grade <= 100:
-		return "green";
-	  case 80 <= grade && grade < 90:
-		return "limegreen";
-	  case 70 <= grade && grade < 80:
-		return "orange";
-	  case 60 <= grade && grade < 70:
-		return "yellow";
-	  default:
-		return "red";
-	}
-  };
-			
+
+ 
+	
 			
 		let imageArr = grabImages(dataObj);
 		/* Add a box around the scoreboard */
@@ -371,44 +442,34 @@ function getColor(grade) {
 		buildCase(thisCase);
 //		cardcount++; // Increment the card count
 	});
+
+
+
 	$('#usBtn').click(function (evt) {
 		evt.preventDefault();
 		console.log("you clicked a button");
-		$("#tut").hide();
 		$("#home").hide();
 		$("#aboutus").show();
 		if (!$("#usBtn").hasClass("active")) {
 			$("#usBtn").addClass("active");
 			$("#homeBtn").removeClass("active");
-			$("#tutorBtn").removeClass("active");
 		}
 	});
 	$('#homeBtn').click(function (evt) {
 		evt.preventDefault();
 		console.log("you clicked a button");
 		$("#aboutus").hide();
-		$("#tut").hide();
 		$("#home").show();
 		if (!$("#homeBtn").hasClass("active")) {
 			$("#usBtn").removeClass("active");
 			$("#homeBtn").addClass("active");
-			$("#tutorBtn").removeClass("active");
-		}		
-	});
-	$('#tutorBtn').click(function (evt) {
-		evt.preventDefault();
-		console.log("you clicked a button");
-		$("#aboutus").hide();
-		$("#tut").show();
-		$("#home").hide();
-		if (!$("#tutorBtn").hasClass("active")) {
-			$("#usBtn").removeClass("active");
-			$("#homeBtn").removeClass("active");
-			$("#tutorBtn").addClass("active");
 		}		
 	});
 
 
-	
+		
+		 
+		
+		  
 	return;
 }())
