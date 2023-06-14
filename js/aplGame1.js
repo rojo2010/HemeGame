@@ -2,7 +2,6 @@
 
 var score = 0;
 var cardcount = 0;
-var grade = 0;
 
 (function () {
 	"use strict";
@@ -30,16 +29,8 @@ var grade = 0;
 
 	let scorecard = function (){
 		score++;
-		grade = score*100/cardcount;
 		}
-	let tries = function (){
-		cardcount++;
-		grade = score*100/cardcount;
-		}
-	//let fails = function (){
-	//	score--;
-	//		}
-		
+
 	let generateUniqueRandomNumbers = function (n, max) {
 		let ret = {};
 		let retArr = [];
@@ -66,68 +57,9 @@ var grade = 0;
 		let $images = $('<div>',{class: "row rowfill img-magnifier-container"}).appendTo($card);
 		let $sidebar = $('<div>',{class: "sidebar"}).appendTo($card);
 		let $btnGroup = $('<div>',{class: "sidebar"},{class: "btn-group flex-column btnfill"}).appendTo($sidebar)
-		$('<br>').appendTo($card);
-		let $scorecard = $('<div>',{class: "section"}).appendTo($card);
-        $('<h2>', {id: "newby", text: 'Your Score',   style: "margin-left: 10px; margin-right: 10px;"	}).appendTo($scorecard);
-		$('<label>', { id: "lblScore", text: score}).appendTo($scorecard); // Display score	
-		$('<text>', {id: "slash", text: '/'}).appendTo($scorecard);	
-		$('<label>', { id: "cardshark", text: cardcount}).appendTo($scorecard); // Display number of attempts
-		$('<br>').appendTo($scorecard);
-		$('<label>', { id: "grade", text: Math.round(grade)}).appendTo($scorecard); // Display score as a percentage
-		$('<text>', {id: "percent", text: "%"}).appendTo($scorecard);
-		// Set the background color of the scorecard box based on the value of grade
-//$scorecard.css("background-color", getColor(grade));
-if (grade >= 90) {
-	$scorecard.css("background-color", "green");
-  } else if (grade >= 80) {
-	$scorecard.css("background-color", "limegreen");
-  } else if (grade >= 70) {
-	$scorecard.css("background-color", "yellowgreen");
-  } else if (grade >= 60) {
-	$scorecard.css("background-color", "yellow");
-  } else {
-	$scorecard.css("background-color", "red");
-  }
-
-$scorecard.find("label").css({
-  fontSize: '1.5em'
-});
-$scorecard.find("text").css({
-	fontSize: '1.5em'
-  });
-function getColor(grade) {
-	switch (grade) {
-	  case 90 <= grade && grade <= 100:
-		return "green";
-	  case 80 <= grade && grade < 90:
-		return "limegreen";
-	  case 70 <= grade && grade < 80:
-		return "orange";
-	  case 60 <= grade && grade < 70:
-		return "yellow";
-	  default:
-		return "red";
-	}
-  };
-			
-			
+		let $scorecard = $('<div>',{class: "sidebar"}).appendTo($card);
+        $('<label>', { id: "lblScore", text: score }).appendTo($scorecard); // Display score
 		let imageArr = grabImages(dataObj);
-		/* Add a box around the scoreboard */
-
-		$scorecard.css({
-			border: "2px solid black",
-			//width: `${score.length + cardcount.length + 50}ch`,
-			//height: `${score.length + cardcount.length + 10}ch`,
-			'text-align': 'center',
-			'margin-left': 'auto',
-			'margin-right': 'auto',
-			'margin-top': 'auto',
-			'margin-bottom': 'auto',
-			borderRadius: '5px'
-		});
-	
-
-	
 
 		imageArr.forEach(function (image, index) {
 			let $img = $('<img>', {id: "imageHolderMag" + index, width: 350, height: 350, src: image[0], class: "imgFill " + image[1]});
@@ -174,7 +106,7 @@ function getColor(grade) {
 		
 	}
 
-	let answerResponse = function (dataObj, response, score, cardcount) {
+	let answerResponse = function (dataObj, response, score) {
 		return function (evt) {
 			evt.preventDefault();
 			let responseStr = "Not sure what happened... Sorry...";
@@ -193,10 +125,6 @@ function getColor(grade) {
 				  eventAction: 'answer',
 				  eventLabel: "caseType:" + dataObj.caseType + "|res:" + response,
 				});
-				tries();
-				var cardshark = document.getElementById("cardshark");
-				cardshark.innerHTML = cardcount;
-
 			}
             if (dataObj.caseType === response) {
                 responseStr = "Nailed it!";
@@ -204,16 +132,12 @@ function getColor(grade) {
                 var lblScore = document.getElementById("lblScore");
                 lblScore.innerHTML = score;
 
-
 			} else {responseStr = "try again"
-				}
+			}
 
 			if (dataObj.response) {
 				responseStr = responseStr + " " + dataObj.response;
 			}
-			//tries();
-			//var cardshark = document.getElementById("cardshark");
-			//cardshark.innerHTML = cardcount;
 
 			console.log(responseStr);
 			dialog(responseStr);
@@ -369,7 +293,7 @@ function getColor(grade) {
 		$modal.modal("hide");
 		let thisCase = grabCase();
 		buildCase(thisCase);
-//		cardcount++; // Increment the card count
+		cardcount++; // Increment the card count
 	});
 	$('#usBtn').click(function (evt) {
 		evt.preventDefault();
